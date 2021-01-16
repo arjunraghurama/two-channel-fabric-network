@@ -3,7 +3,8 @@
 # This function will clean up everything
 function down(){
 
-    docker-compose down -f docker/docker-compose-ca.yaml docker/docker-compose-test-net.yaml
+    docker-compose -f docker/docker-compose-ca.yaml down --remove-orphans
+    docker-compose -f docker/docker-compose-test-net.yaml down --remove-orphans
 
     CONTAINER_IDS=$(docker ps -a | awk '($2 ~ /dev-peer.*/) {print $1}')
     if [ -z "$CONTAINER_IDS" -o "$CONTAINER_IDS" == " " ]; then
