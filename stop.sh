@@ -1,10 +1,9 @@
 #!/bin/bash
 
+source scriptUtils.sh
+
 # This function will clean up everything
 function down(){
-
-    docker-compose -f docker/docker-compose-ca.yaml down --remove-orphans
-    docker-compose -f docker/docker-compose-test-net.yaml down --remove-orphans
 
     CONTAINER_IDS=$(docker ps -a | awk '($2 ~ /dev-peer.*/) {print $1}')
     if [ -z "$CONTAINER_IDS" -o "$CONTAINER_IDS" == " " ]; then
@@ -12,7 +11,17 @@ function down(){
     else
         docker rm -f $CONTAINER_IDS
     fi
-
+    
+    DOCKER_IMAGE_IDS=$(docker images | awk '($1 ~ /dev-peer.*/) {print $3}')
+    if [ -z "$DOCKER_IMAGE_IDS" -o "$DOCKER_IMAGE_IDS" == " " ]; then
+        infoln "No images available for deletion"
+    else
+        docker rmi -f $DOCKER_IMAGE_IDS
+    fi
+    
+    docker-compose -f docker/docker-compose-test-net.yaml down --volumes --remove-orphans
+    docker-compose -f docker/docker-compose-ca.yaml down --volumes --remove-orphans
+    
     # remove orderer block and other channel configuration transactions and certs
     docker run --rm -v $(pwd):/data busybox sh -c 'cd /data && rm -rf system-genesis-block/*.block organizations/peerOrganizations organizations/ordererOrganizations'
     ## remove fabric ca artifacts
