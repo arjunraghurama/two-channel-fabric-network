@@ -18,7 +18,7 @@ function helper(){
   # peer (if join was successful), let's supply it directly as we know
   # it using the "-o" option
   set -x
-  CHANNEL_NAME="channel-2"
+  CHANNEL_NAME="channel-1"
 #   fcn_call='{"function":"queryAllCars","Args":[]}'
 #   fcn_call='{"function":"queryCar","Args":["CAR1"]}'
 #   fcn_call='{"function":"changeCarOwner","Args":["CAR1","Mike"]}'
@@ -34,7 +34,7 @@ function helper(){
 }
 
 # To invoke chaincode on channel-1
-# helper 1 2 3
+helper 1 2 3
 
 # To invoke chaincode on channel-2
-helper 2 3
+# helper 2 3
