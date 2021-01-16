@@ -18,11 +18,11 @@ function helper(){
   # peer (if join was successful), let's supply it directly as we know
   # it using the "-o" option
   set -x
-  export CHANNEL_NAME="channel-1"
+  CHANNEL_NAME="channel-2"
 #   fcn_call='{"function":"queryAllCars","Args":[]}'
 #   fcn_call='{"function":"queryCar","Args":["CAR1"]}'
 #   fcn_call='{"function":"changeCarOwner","Args":["CAR1","Mike"]}'
-#   fcn_call='{"function":"createCar","Args":["CAR2","Ford","Mustang","Blue","Arav"]}'
+  fcn_call='{"function":"createCar","Args":["CAR1","Ford","Mustang","Blue","Arav"]}'
   infoln "invoke fcn call:${fcn_call}"
   peer chaincode invoke -o localhost:7050 --ordererTLSHostnameOverride orderer.example.com --tls --cafile $ORDERER_CA -C $CHANNEL_NAME -n ${CC_NAME} $PEER_CONN_PARMS -c ${fcn_call} >&log.txt
   res=$?
@@ -34,7 +34,7 @@ function helper(){
 }
 
 # To invoke chaincode on channel-1
-helper 1 2 3
+# helper 1 2 3
 
 # To invoke chaincode on channel-2
-# helper 2 3
+helper 2 3
