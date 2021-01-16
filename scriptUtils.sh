@@ -126,22 +126,22 @@ function println() {
 
 # errorln echos i red color
 function errorln() {
-  println "${C_RED}${1}${C_RESET}"
+  println " ${C_RED}[-] ${1}${C_RESET}"
 }
 
 # successln echos in green color
 function successln() {
-  println "${C_GREEN}${1}${C_RESET}"
+  println "${C_GREEN}[+] ${1}${C_RESET}"
 }
 
 # infoln echos in blue color
 function infoln() {
-  println "${C_BLUE}${1}${C_RESET}"
+  println " ${C_BLUE}[*] ${1}${C_RESET}"
 }
 
 # warnln echos in yellow color
 function warnln() {
-  println "${C_YELLOW}${1}${C_RESET}"
+  println " ${C_YELLOW}[0] ${1}${C_RESET}"
 }
 
 # fatalln echos in red color and exits with fail status
